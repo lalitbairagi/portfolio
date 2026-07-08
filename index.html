@@ -5,8 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lalit Bairagi | Creative Content Developer</title>
 <meta name="description" content="Portfolio of Lalit Bairagi, Creative Content Developer and AI Workflow Specialist, Mumbai.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2718%27 fill=%27%23E50914%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-family=%27Arial,sans-serif%27 font-size=%2756%27 font-weight=%27700%27 fill=%27%23fff%27 text-anchor=%27middle%27%3ELB%3C/text%3E%3C/svg%3E">
+  <!-- Social sharing preview (add og:image and og:url after you have the live repo/site URL) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lalit Bairagi | Creative Content Developer">
+  <meta property="og:description" content="Portfolio of Lalit Bairagi, Creative Content Developer and AI Workflow Specialist, Mumbai.">
+  <meta property="og:site_name" content="Lalit Bairagi Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lalit Bairagi | Creative Content Developer">
+  <meta name="twitter:description" content="Portfolio of Lalit Bairagi, Creative Content Developer and AI Workflow Specialist, Mumbai.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://videos.pexels.com" crossorigin>
+  <link rel="dns-prefetch" href="https://videos.pexels.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bebas+Neue&family=Oswald:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1065,13 +1076,6 @@
   .top-item:hover .top-read, .top-item:focus-within .top-read { opacity: 1; }
 
 
-  /* YouTube hover embed (Aaj Zindagi card) */
-  .yt-hover { position:absolute; inset:0; opacity:0; transition:opacity .35s ease; pointer-events:none; overflow:hidden; background:#000; }
-  .card:hover .yt-hover.active, .yt-hover.active { opacity:1; }
-  .yt-hover iframe { position:absolute; top:50%; left:50%; width:178%; height:178%; transform:translate(-50%,-50%); border:0; pointer-events:none; }
-  .yt-mute { position:absolute; right:10px; bottom:10px; z-index:5; width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.6); background:rgba(0,0,0,.55); color:#fff; display:none; align-items:center; justify-content:center; cursor:pointer; }
-  .card:hover .yt-mute { display:flex; }
-
   </style>
 </head>
 <body>
@@ -1124,7 +1128,7 @@
 
 <!-- HERO -->
 <header class="hero" id="top">
-  <video class="hero-video" autoplay muted loop playsinline>
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
     <source src="https://videos.pexels.com/video-files/5438278/5438278-hd_1920_1080_30fps.mp4" type="video/mp4">
   </video>
   <div class="hero-veil"></div>
@@ -1935,49 +1939,6 @@ function __init(){
     }
   };
 
-
-  // ===== YOUTUBE HOVER EMBED (Netflix-style, muted autoplay + unmute tab) =====
-  document.querySelectorAll('.card .yt-hover').forEach(box => {
-    const card = box.closest('.card');
-    const btn = card.querySelector('.yt-mute');
-    const ytid = box.getAttribute('data-ytid');
-    let iframe = null, muted = true, hoverTimer = null;
-
-    function setIcons() {
-      btn.querySelector('.ico-muted').style.display = muted ? '' : 'none';
-      btn.querySelector('.ico-sound').style.display = muted ? 'none' : '';
-      btn.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
-    }
-    function startYt() {
-      hoverTimer = setTimeout(() => {
-        if (iframe) return;
-        iframe = document.createElement('iframe');
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytid +
-          '?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1&loop=1&playlist=' + ytid + '&enablejsapi=1';
-        iframe.allow = 'autoplay; encrypted-media';
-        box.appendChild(iframe);
-        box.classList.add('active');
-        muted = true; setIcons();
-      }, 350);
-    }
-    function stopYt() {
-      clearTimeout(hoverTimer);
-      if (iframe) { box.removeChild(iframe); iframe = null; }
-      box.classList.remove('active');
-      muted = true; setIcons();
-    }
-    function toggleMute(ev) {
-      ev.stopPropagation(); ev.preventDefault();
-      if (!iframe) return;
-      const func = muted ? 'unMute' : 'mute';
-      iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: func, args: '' }), '*');
-      muted = !muted; setIcons();
-    }
-    card.addEventListener('mouseenter', startYt);
-    card.addEventListener('mouseleave', stopYt);
-    btn.addEventListener('click', toggleMute);
-    setIcons();
-  });
 
   // ===== MODAL LOGIC =====
   const overlay = document.getElementById('modal-overlay');
